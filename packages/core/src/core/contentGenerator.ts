@@ -57,6 +57,7 @@ export enum AuthType {
   LOGIN_WITH_GOOGLE = 'oauth-personal',
   USE_GEMINI = 'gemini-api-key',
   USE_VERTEX_AI = 'vertex-ai',
+  USE_DEEPSEEK = 'deepseek-api-key',
   LEGACY_CLOUD_SHELL = 'cloud-shell',
   COMPUTE_ADC = 'compute-default-credentials',
 }
@@ -78,6 +79,9 @@ export function getAuthTypeFromEnv(): AuthType | undefined {
   }
   if (process.env['GEMINI_API_KEY']) {
     return AuthType.USE_GEMINI;
+  }
+  if (process.env['DEEPSEEK_API_KEY']) {
+    return AuthType.USE_DEEPSEEK;
   }
   if (
     process.env['CLOUD_SHELL'] === 'true' ||
@@ -111,6 +115,7 @@ export async function createContentGeneratorConfig(
     process.env['GOOGLE_CLOUD_PROJECT_ID'] ||
     undefined;
   const googleCloudLocation = process.env['GOOGLE_CLOUD_LOCATION'] || undefined;
+  const deepseekApiKey = process.env['DEEPSEEK_API_KEY'] || undefined;
 
   const contentGeneratorConfig: ContentGeneratorConfig = {
     authType,
@@ -139,6 +144,11 @@ export async function createContentGeneratorConfig(
     contentGeneratorConfig.apiKey = googleApiKey;
     contentGeneratorConfig.vertexai = true;
 
+    return contentGeneratorConfig;
+  }
+
+  if (authType === AuthType.USE_DEEPSEEK && deepseekApiKey) {
+    contentGeneratorConfig.apiKey = deepseekApiKey;
     return contentGeneratorConfig;
   }
 
@@ -223,6 +233,15 @@ export async function createContentGenerator(
         ...(apiVersionEnv && { apiVersion: apiVersionEnv }),
       });
       return new LoggingContentGenerator(googleGenAI.models, gcConfig);
+    }
+    if (config.authType === AuthType.USE_DEEPSEEK && config.apiKey) {
+      const { DeepSeekContentGenerator } = await import(
+        './deepSeekContentGenerator.js'
+      );
+      return new LoggingContentGenerator(
+        new DeepSeekContentGenerator(config.apiKey),
+        gcConfig,
+      );
     }
     throw new Error(
       `Error creating contentGenerator: Unsupported authType: ${config.authType}`,

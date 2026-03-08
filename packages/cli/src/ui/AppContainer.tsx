@@ -676,6 +676,7 @@ export const AppContainer = (props: AppContainerProps) => {
     reloadApiKey,
     accountSuspensionInfo,
     setAccountSuspensionInfo,
+    selectedAuthType,
   } = useAuthCommand(
     settings,
     config,
@@ -2221,6 +2222,7 @@ Logging in with Google... Restarting Gemini CLI to continue.
       folderDiscoveryResults,
       isPolicyUpdateDialogOpen,
       policyUpdateConfirmationRequest,
+      selectedAuthType,
       isTrustedFolder,
       constrainHeight,
       showErrorDetails,
@@ -2407,6 +2409,7 @@ Logging in with Google... Restarting Gemini CLI to continue.
       customDialog,
       apiKeyDefaultValue,
       authState,
+      selectedAuthType,
       copyModeEnabled,
       transientMessage,
       bannerData,

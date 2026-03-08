@@ -29,8 +29,8 @@ export function validateAuthMethodWithSettings(
   if (settings.merged.security.auth.useExternal) {
     return null;
   }
-  // If using Gemini API key, we don't validate it here as we might need to prompt for it.
-  if (authType === AuthType.USE_GEMINI) {
+  // If using Gemini or DeepSeek API key, we don't validate it here as we might need to prompt for it.
+  if (authType === AuthType.USE_GEMINI || authType === AuthType.USE_DEEPSEEK) {
     return null;
   }
   return validateAuthMethod(authType);
@@ -54,6 +54,7 @@ export const useAuthCommand = (
   const [apiKeyDefaultValue, setApiKeyDefaultValue] = useState<
     string | undefined
   >(undefined);
+  const selectedAuthType = settings.merged.security.auth.selectedType;
 
   const onAuthError = useCallback(
     (error: string | null) => {
@@ -66,7 +67,9 @@ export const useAuthCommand = (
   );
 
   const reloadApiKey = useCallback(async () => {
-    const envKey = process.env['GEMINI_API_KEY'];
+    const envKey = selectedAuthType === AuthType.USE_DEEPSEEK 
+      ? process.env['DEEPSEEK_API_KEY'] 
+      : process.env['GEMINI_API_KEY'];
     if (envKey !== undefined) {
       setApiKeyDefaultValue(envKey);
       return envKey;
@@ -75,7 +78,7 @@ export const useAuthCommand = (
     const storedKey = (await loadApiKey()) ?? '';
     setApiKeyDefaultValue(storedKey);
     return storedKey;
-  }, []);
+  }, [selectedAuthType]);
 
   useEffect(() => {
     if (authState === AuthState.AwaitingApiKeyInput) {
@@ -103,7 +106,7 @@ export const useAuthCommand = (
         return;
       }
 
-      if (authType === AuthType.USE_GEMINI) {
+      if (authType === AuthType.USE_GEMINI || authType === AuthType.USE_DEEPSEEK) {
         const key = await reloadApiKey(); // Use the unified function
         if (!key) {
           setAuthState(AuthState.AwaitingApiKeyInput);
@@ -172,5 +175,6 @@ export const useAuthCommand = (
     reloadApiKey,
     accountSuspensionInfo,
     setAccountSuspensionInfo,
+    selectedAuthType,
   };
 };

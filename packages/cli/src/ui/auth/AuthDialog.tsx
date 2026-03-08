@@ -6,6 +6,7 @@
 
 import type React from 'react';
 import { useCallback, useState } from 'react';
+import process from 'node:process';
 import { Box, Text } from 'ink';
 import { theme } from '../semantic-colors.js';
 import { RadioButtonSelect } from '../components/shared/RadioButtonSelect.js';
@@ -71,6 +72,11 @@ export function AuthDialog({
       key: AuthType.USE_GEMINI,
     },
     {
+      label: 'Use DeepSeek API Key',
+      value: AuthType.USE_DEEPSEEK,
+      key: AuthType.USE_DEEPSEEK,
+    },
+    {
       label: 'Vertex AI',
       value: AuthType.USE_VERTEX_AI,
       key: AuthType.USE_VERTEX_AI,
@@ -107,6 +113,10 @@ export function AuthDialog({
       return item.value === AuthType.USE_GEMINI;
     }
 
+    if (process.env['DEEPSEEK_API_KEY']) {
+      return item.value === AuthType.USE_DEEPSEEK;
+    }
+
     return item.value === AuthType.LOGIN_WITH_GOOGLE;
   });
   if (settings.merged.security.auth.enforcedType) {
@@ -136,8 +146,9 @@ export function AuthDialog({
           return;
         }
 
-        if (authType === AuthType.USE_GEMINI) {
-          if (process.env['GEMINI_API_KEY'] !== undefined) {
+        if (authType === AuthType.USE_GEMINI || authType === AuthType.USE_DEEPSEEK) {
+          const envKey = authType === AuthType.USE_GEMINI ? process.env['GEMINI_API_KEY'] : process.env['DEEPSEEK_API_KEY'];
+          if (envKey !== undefined) {
             setAuthState(AuthState.Unauthenticated);
             return;
           } else {
