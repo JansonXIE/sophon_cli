@@ -67,15 +67,16 @@ export const useAuthCommand = (
   );
 
   const reloadApiKey = useCallback(async () => {
-    const envKey = selectedAuthType === AuthType.USE_DEEPSEEK 
-      ? process.env['DEEPSEEK_API_KEY'] 
-      : process.env['GEMINI_API_KEY'];
+    const envKey =
+      selectedAuthType === AuthType.USE_DEEPSEEK
+        ? process.env['DEEPSEEK_API_KEY']
+        : process.env['GEMINI_API_KEY'];
     if (envKey !== undefined) {
       setApiKeyDefaultValue(envKey);
       return envKey;
     }
 
-    const storedKey = (await loadApiKey()) ?? '';
+    const storedKey = (await loadApiKey(selectedAuthType)) ?? '';
     setApiKeyDefaultValue(storedKey);
     return storedKey;
   }, [selectedAuthType]);
@@ -106,7 +107,10 @@ export const useAuthCommand = (
         return;
       }
 
-      if (authType === AuthType.USE_GEMINI || authType === AuthType.USE_DEEPSEEK) {
+      if (
+        authType === AuthType.USE_GEMINI ||
+        authType === AuthType.USE_DEEPSEEK
+      ) {
         const key = await reloadApiKey(); // Use the unified function
         if (!key) {
           setAuthState(AuthState.AwaitingApiKeyInput);

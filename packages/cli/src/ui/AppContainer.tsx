@@ -812,9 +812,10 @@ Logging in with Google... Restarting Gemini CLI to continue.
           return;
         }
 
-        await saveApiKey(apiKey);
+        await saveApiKey(apiKey, selectedAuthType);
         await reloadApiKey();
-        await config.refreshAuth(AuthType.USE_GEMINI);
+        const authTypeToRefresh = selectedAuthType || AuthType.USE_GEMINI;
+        await config.refreshAuth(authTypeToRefresh);
         setAuthState(AuthState.Authenticated);
       } catch (e) {
         onAuthError(
@@ -822,7 +823,7 @@ Logging in with Google... Restarting Gemini CLI to continue.
         );
       }
     },
-    [setAuthState, onAuthError, reloadApiKey, config],
+    [setAuthState, onAuthError, reloadApiKey, config, selectedAuthType],
   );
 
   const handleApiKeyCancel = useCallback(() => {

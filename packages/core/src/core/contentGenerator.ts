@@ -115,7 +115,10 @@ export async function createContentGeneratorConfig(
     process.env['GOOGLE_CLOUD_PROJECT_ID'] ||
     undefined;
   const googleCloudLocation = process.env['GOOGLE_CLOUD_LOCATION'] || undefined;
-  const deepseekApiKey = process.env['DEEPSEEK_API_KEY'] || undefined;
+  const deepseekApiKey =
+    process.env['DEEPSEEK_API_KEY'] ||
+    (await loadApiKey(AuthType.USE_DEEPSEEK)) ||
+    undefined;
 
   const contentGeneratorConfig: ContentGeneratorConfig = {
     authType,

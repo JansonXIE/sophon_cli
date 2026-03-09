@@ -7,18 +7,26 @@
 import { HybridTokenStorage } from '../mcp/token-storage/hybrid-token-storage.js';
 import type { OAuthCredentials } from '../mcp/token-storage/types.js';
 import { debugLogger } from '../utils/debugLogger.js';
+import { AuthType } from './contentGenerator.js';
 
 const KEYCHAIN_SERVICE_NAME = 'gemini-cli-api-key';
-const DEFAULT_API_KEY_ENTRY = 'default-api-key';
 
 const storage = new HybridTokenStorage(KEYCHAIN_SERVICE_NAME);
+
+function getEntryName(authType?: string): string {
+  if (authType === AuthType.USE_DEEPSEEK) {
+    return 'deepseek-api-key';
+  }
+  return 'default-api-key';
+}
 
 /**
  * Load cached API key
  */
-export async function loadApiKey(): Promise<string | null> {
+export async function loadApiKey(authType?: string): Promise<string | null> {
   try {
-    const credentials = await storage.getCredentials(DEFAULT_API_KEY_ENTRY);
+    const entryName = getEntryName(authType);
+    const credentials = await storage.getCredentials(entryName);
 
     if (credentials?.token?.accessToken) {
       return credentials.token.accessToken;
@@ -37,10 +45,12 @@ export async function loadApiKey(): Promise<string | null> {
  */
 export async function saveApiKey(
   apiKey: string | null | undefined,
+  authType?: string,
 ): Promise<void> {
+  const entryName = getEntryName(authType);
   if (!apiKey || apiKey.trim() === '') {
     try {
-      await storage.deleteCredentials(DEFAULT_API_KEY_ENTRY);
+      await storage.deleteCredentials(entryName);
     } catch (error: unknown) {
       // Ignore errors when deleting, as it might not exist
       debugLogger.warn('Failed to delete API key from storage:', error);
@@ -50,7 +60,7 @@ export async function saveApiKey(
 
   // Wrap API key in OAuthCredentials format as required by HybridTokenStorage
   const credentials: OAuthCredentials = {
-    serverName: DEFAULT_API_KEY_ENTRY,
+    serverName: entryName,
     token: {
       accessToken: apiKey,
       tokenType: 'ApiKey',
@@ -64,9 +74,10 @@ export async function saveApiKey(
 /**
  * Clear cached API key
  */
-export async function clearApiKey(): Promise<void> {
+export async function clearApiKey(authType?: string): Promise<void> {
   try {
-    await storage.deleteCredentials(DEFAULT_API_KEY_ENTRY);
+    const entryName = getEntryName(authType);
+    await storage.deleteCredentials(entryName);
   } catch (error: unknown) {
     debugLogger.error('Failed to clear API key from storage:', error);
   }
