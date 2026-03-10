@@ -218,6 +218,7 @@ export class KimiContentGenerator implements ContentGenerator {
 
     return {
       text: messageContent,
+      modelVersion: modelName,
       functionCalls:
         extractedFunctionCalls.length > 0
           ? extractedFunctionCalls
@@ -359,6 +360,7 @@ export class KimiContentGenerator implements ContentGenerator {
                   };
                   yield {
                     functionCalls: [fc],
+                    modelVersion: modelName,
                     candidates: [
                       {
                         content: {
@@ -387,6 +389,7 @@ export class KimiContentGenerator implements ContentGenerator {
               }
             } else {
               yield {
+                modelVersion: modelName,
                 candidates: [
                   {
                     content: { parts: [], role: 'model' },
@@ -419,6 +422,7 @@ export class KimiContentGenerator implements ContentGenerator {
               if (content) {
                 yield {
                   text: content,
+                  modelVersion: modelName,
                   candidates: [
                     {
                       content: { parts: [{ text: content }], role: 'model' },
