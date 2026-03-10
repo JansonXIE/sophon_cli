@@ -12,6 +12,7 @@ import {
   tildeifyPath,
   getDisplayString,
   checkExhaustive,
+  AuthType,
 } from '@google/gemini-cli-core';
 import { ConsoleSummaryDisplay } from './ConsoleSummaryDisplay.js';
 import process from 'node:process';
@@ -290,7 +291,15 @@ export const Footer: React.FC = () => {
         break;
       }
       case 'model-name': {
-        const str = getDisplayString(model);
+        const authType = settings.merged.security.auth.selectedType;
+        let str: string;
+        if (authType === AuthType.USE_KIMI) {
+          str = 'Kimi';
+        } else if (authType === AuthType.USE_DEEPSEEK) {
+          str = 'DeepSeek';
+        } else {
+          str = getDisplayString(model);
+        }
         addCol(
           id,
           header,
