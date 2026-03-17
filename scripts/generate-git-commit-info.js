@@ -18,10 +18,9 @@
 // limitations under the License.
 
 import { execSync } from 'node:child_process';
-import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { readPackageUp } from 'read-package-up';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, '..');
@@ -49,8 +48,10 @@ try {
     gitCommitInfo = gitHash;
   }
 
-  const result = await readPackageUp();
-  cliVersion = result?.packageJson?.version ?? 'UNKNOWN';
+  const rootPackageJson = JSON.parse(
+    readFileSync(join(root, 'package.json'), 'utf-8'),
+  );
+  cliVersion = rootPackageJson?.version ?? 'UNKNOWN';
 } catch {
   // ignore
 }
