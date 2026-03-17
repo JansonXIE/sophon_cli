@@ -229,12 +229,12 @@ const packageJson = JSON.parse(
 const sha256 = (content) => createHash('sha256').update(content).digest('hex');
 
 // Read Main Bundle
-const geminiBundlePath = join(root, 'bundle/gemini.js');
+const geminiBundlePath = join(root, 'bundle/opencli.js');
 const geminiContent = readFileSync(geminiBundlePath);
 const geminiHash = sha256(geminiContent);
 
 const assets = {
-  'gemini.mjs': geminiBundlePath, // Use .js source but map to .mjs for runtime ESM
+  'opencli.mjs': geminiBundlePath, // Use .js source but map to .mjs for runtime ESM
   'manifest.json': 'bundle/manifest.json',
 };
 
@@ -357,10 +357,10 @@ if (existsSync(bundleDir)) {
 
 // Clean up source JS files from output (we only want embedded)
 const filesToRemove = [
-  'gemini.js',
-  'gemini.mjs',
-  'gemini.js.map',
-  'gemini.mjs.map',
+  'opencli.js',
+  'opencli.mjs',
+  'opencli.js.map',
+  'opencli.mjs.map',
   'gemini-sea.cjs',
   'sea-launch.cjs',
   'manifest.json',

@@ -39,12 +39,12 @@ fs.writeFileSync(
 );
 console.log('Wrote .npmrc for @google-gemini scope to packages/core/');
 
-// Update @google/gemini-cli
+// Update opencli
 updatePackageJson('packages/cli/package.json', (pkg) => {
-  pkg.name = '@google-gemini/gemini-cli';
+  pkg.name = 'opencli';
   pkg.files = ['bundle/'];
   pkg.bin = {
-    gemini: 'bundle/gemini.js',
+    opencli: 'bundle/opencli.js',
   };
 
   // Remove fields that are not relevant to the bundled package.

@@ -85,7 +85,7 @@ const cliConfig = {
     js: `const require = (await import('node:module')).createRequire(import.meta.url); globalThis.__filename = (await import('node:url')).fileURLToPath(import.meta.url); globalThis.__dirname = (await import('node:path')).dirname(globalThis.__filename);`,
   },
   entryPoints: ['packages/cli/index.ts'],
-  outfile: 'bundle/gemini.js',
+  outfile: 'bundle/opencli.js',
   define: {
     'process.env.CLI_VERSION': JSON.stringify(pkg.version),
     'process.env.GEMINI_SANDBOX_IMAGE_DEFAULT': JSON.stringify(

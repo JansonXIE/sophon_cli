@@ -1,20 +1,17 @@
-# Gemini CLI
+# OpenCLI
 
-[![Gemini CLI CI](https://github.com/google-gemini/gemini-cli/actions/workflows/ci.yml/badge.svg)](https://github.com/google-gemini/gemini-cli/actions/workflows/ci.yml)
-[![Gemini CLI E2E (Chained)](https://github.com/google-gemini/gemini-cli/actions/workflows/chained_e2e.yml/badge.svg)](https://github.com/google-gemini/gemini-cli/actions/workflows/chained_e2e.yml)
-[![Version](https://img.shields.io/npm/v/@google/gemini-cli)](https://www.npmjs.com/package/@google/gemini-cli)
-[![License](https://img.shields.io/github/license/google-gemini/gemini-cli)](https://github.com/google-gemini/gemini-cli/blob/main/LICENSE)
-[![View Code Wiki](https://assets.codewiki.google/readme-badge/static.svg)](https://codewiki.google/github.com/google-gemini/gemini-cli?utm_source=badge&utm_medium=github&utm_campaign=github.com/google-gemini/gemini-cli)
+[![OpenCLI CI](https://github.com/JansonXIE/opencli/actions/workflows/ci.yml/badge.svg)](https://github.com/JansonXIE/opencli/actions/workflows/ci.yml)
+[![OpenCLI E2E (Chained)](https://github.com/JansonXIE/opencli/actions/workflows/chained_e2e.yml/badge.svg)](https://github.com/JansonXIE/opencli/actions/workflows/chained_e2e.yml)
+[![License](https://img.shields.io/github/license/JansonXIE/opencli)](https://github.com/JansonXIE/opencli/blob/main/LICENSE)
 
-![Gemini CLI Screenshot](./docs/assets/gemini-screenshot.png)
+OpenCLI is an artificial intelligence agent developed based on the Gemini CLI,
+with the aim of adapting to the APIs of large-scale models in China, which
+brings the power of Gemini directly into your terminal. It provides lightweight
+access to Gemini, giving you the most direct path from your prompt to our model.
 
-Gemini CLI is an open-source AI agent that brings the power of Gemini directly
-into your terminal. It provides lightweight access to Gemini, giving you the
-most direct path from your prompt to our model.
+Learn all about OpenCLI in our [documentation](https://geminicli.com/docs/).
 
-Learn all about Gemini CLI in our [documentation](https://geminicli.com/docs/).
-
-## 🚀 Why Gemini CLI?
+## 🚀 Why OpenCLI?
 
 - **🎯 Free tier**: 60 requests/min and 1,000 requests/day with personal Google
   account.
@@ -30,7 +27,7 @@ Learn all about Gemini CLI in our [documentation](https://geminicli.com/docs/).
 ## 📦 Installation
 
 See
-[Gemini CLI installation, execution, and releases](./docs/get-started/installation.md)
+[OpenCLI installation, execution, and releases](./docs/get-started/installation.md)
 for recommended system specifications and a detailed installation guide.
 
 ### Quick Install
@@ -39,36 +36,36 @@ for recommended system specifications and a detailed installation guide.
 
 ```bash
 # Using npx (no installation required)
-npx @google/gemini-cli
+npx opencli
 ```
 
 #### Install globally with npm
 
 ```bash
-npm install -g @google/gemini-cli
+npm install -g opencli
 ```
 
 #### Install globally with Homebrew (macOS/Linux)
 
 ```bash
-brew install gemini-cli
+brew install opencli
 ```
 
 #### Install globally with MacPorts (macOS)
 
 ```bash
-sudo port install gemini-cli
+sudo port install opencli
 ```
 
 #### Install with Anaconda (for restricted environments)
 
 ```bash
 # Create and activate a new environment
-conda create -y -n gemini_env -c conda-forge nodejs
-conda activate gemini_env
+conda create -y -n opencli_env -c conda-forge nodejs
+conda activate opencli_env
 
-# Install Gemini CLI globally via npm (inside the environment)
-npm install -g @google/gemini-cli
+# Install OpenCLI globally via npm (inside the environment)
+npm install -g opencli
 ```
 
 ## Release Cadence and Tags
@@ -82,7 +79,7 @@ releases will not have been fully vetted and may contain regressions or other
 outstanding issues. Please help us test and install with `preview` tag.
 
 ```bash
-npm install -g @google/gemini-cli@preview
+npm install -g opencli@preview
 ```
 
 ### Stable
@@ -92,7 +89,7 @@ npm install -g @google/gemini-cli@preview
   and validations. Use `latest` tag.
 
 ```bash
-npm install -g @google/gemini-cli@latest
+npm install -g opencli@latest
 ```
 
 ### Nightly
@@ -102,7 +99,7 @@ npm install -g @google/gemini-cli@latest
   there are pending validations and issues. Use `nightly` tag.
 
 ```bash
-npm install -g @google/gemini-cli@nightly
+npm install -g opencli@nightly
 ```
 
 ## 📋 Key Features
@@ -131,15 +128,15 @@ npm install -g @google/gemini-cli@nightly
 
 ### GitHub Integration
 
-Integrate Gemini CLI directly into your GitHub workflows with
-[**Gemini CLI GitHub Action**](https://github.com/google-github-actions/run-gemini-cli):
+Integrate OpenCLI directly into your GitHub workflows with
+[**OpenCLI GitHub Action**](https://github.com/JansonXIE/opencli):
 
 - **Pull Request Reviews**: Automated code review with contextual feedback and
   suggestions
 - **Issue Triage**: Automated labeling and prioritization of GitHub issues based
   on content analysis
-- **On-demand Assistance**: Mention `@gemini-cli` in issues and pull requests
-  for help with debugging, explanations, or task delegation
+- **On-demand Assistance**: Mention `@opencli` in issues and pull requests for
+  help with debugging, explanations, or task delegation
 - **Custom Workflows**: Build automated, scheduled and on-demand workflows
   tailored to your team's needs
 
@@ -161,10 +158,10 @@ for details)
 - **No API key management** - just sign in with your Google account
 - **Automatic updates** to latest models
 
-#### Start Gemini CLI, then choose _Login with Google_ and follow the browser authentication flow when prompted
+#### Start OpenCLI, then choose _Login with Google_ and follow the browser authentication flow when prompted
 
 ```bash
-gemini
+opencli
 ```
 
 #### If you are using a paid Code Assist License from your organization, remember to set the Google Cloud Project
@@ -172,7 +169,7 @@ gemini
 ```bash
 # Set your Google Cloud Project
 export GOOGLE_CLOUD_PROJECT="YOUR_PROJECT_ID"
-gemini
+opencli
 ```
 
 ### Option 2: Gemini API Key
@@ -188,7 +185,7 @@ gemini
 ```bash
 # Get your key from https://aistudio.google.com/apikey
 export GEMINI_API_KEY="YOUR_API_KEY"
-gemini
+opencli
 ```
 
 ### Option 3: Vertex AI
@@ -205,7 +202,7 @@ gemini
 # Get your key from Google Cloud Console
 export GOOGLE_API_KEY="YOUR_API_KEY"
 export GOOGLE_GENAI_USE_VERTEXAI=true
-gemini
+opencli
 ```
 
 For Google Workspace accounts and other authentication methods, see the
@@ -218,19 +215,19 @@ For Google Workspace accounts and other authentication methods, see the
 #### Start in current directory
 
 ```bash
-gemini
+opencli
 ```
 
 #### Include multiple directories
 
 ```bash
-gemini --include-directories ../lib,../docs
+opencli --include-directories ../lib,../docs
 ```
 
 #### Use specific model
 
 ```bash
-gemini -m gemini-2.5-flash
+opencli -m gemini-2.5-flash
 ```
 
 #### Non-interactive mode for scripts
@@ -238,21 +235,21 @@ gemini -m gemini-2.5-flash
 Get a simple text response:
 
 ```bash
-gemini -p "Explain the architecture of this codebase"
+opencli -p "Explain the architecture of this codebase"
 ```
 
 For more advanced scripting, including how to parse JSON and handle errors, use
 the `--output-format json` flag to get structured output:
 
 ```bash
-gemini -p "Explain the architecture of this codebase" --output-format json
+opencli -p "Explain the architecture of this codebase" --output-format json
 ```
 
 For real-time event streaming (useful for monitoring long-running operations),
 use `--output-format stream-json` to get newline-delimited JSON events:
 
 ```bash
-gemini -p "Run tests and deploy" --output-format stream-json
+opencli -p "Run tests and deploy" --output-format stream-json
 ```
 
 ### Quick Examples
@@ -261,16 +258,16 @@ gemini -p "Run tests and deploy" --output-format stream-json
 
 ```bash
 cd new-project/
-gemini
+opencli
 > Write me a Discord bot that answers questions using a FAQ.md file I will provide
 ```
 
 #### Analyze existing code
 
 ```bash
-git clone https://github.com/google-gemini/gemini-cli
-cd gemini-cli
-gemini
+git clone https://github.com/JansonXIE/opencli
+cd opencli
+opencli
 > Give me a summary of all of the changes that went in yesterday
 ```
 
@@ -294,7 +291,7 @@ gemini
 - [**Custom Commands**](./docs/cli/custom-commands.md) - Create your own
   reusable commands.
 - [**Context Files (GEMINI.md)**](./docs/cli/gemini-md.md) - Provide persistent
-  context to Gemini CLI.
+  context to OpenCLI.
 - [**Checkpointing**](./docs/cli/checkpointing.md) - Save and resume
   conversations.
 - [**Token Caching**](./docs/cli/token-caching.md) - Optimize token usage.
@@ -312,9 +309,9 @@ gemini
 
 ### Advanced Topics
 
-- [**Headless Mode (Scripting)**](./docs/cli/headless.md) - Use Gemini CLI in
+- [**Headless Mode (Scripting)**](./docs/cli/headless.md) - Use OpenCLI in
   automated workflows.
-- [**Architecture Overview**](./docs/architecture.md) - How Gemini CLI works.
+- [**Architecture Overview**](./docs/architecture.md) - How OpenCLI works.
 - [**IDE Integration**](./docs/ide-integration/index.md) - VS Code companion.
 - [**Sandboxing & Security**](./docs/cli/sandbox.md) - Safe execution
   environments.
@@ -336,8 +333,8 @@ gemini
 
 ### Using MCP Servers
 
-Configure MCP servers in `~/.gemini/settings.json` to extend Gemini CLI with
-custom tools:
+Configure MCP servers in `~/.gemini/settings.json` to extend OpenCLI with custom
+tools:
 
 ```text
 > @github List my open pull requests
@@ -350,7 +347,7 @@ instructions.
 
 ## 🤝 Contributing
 
-We welcome contributions! Gemini CLI is fully open source (Apache 2.0), and we
+We welcome contributions! OpenCLI is fully open source (Apache 2.0), and we
 encourage the community to:
 
 - Report bugs and suggest features.
@@ -361,18 +358,17 @@ encourage the community to:
 See our [Contributing Guide](./CONTRIBUTING.md) for development setup, coding
 standards, and how to submit pull requests.
 
-Check our [Official Roadmap](https://github.com/orgs/google-gemini/projects/11)
-for planned features and priorities.
+Check our [Official Roadmap](https://github.com/JansonXIE/opencli/projects) for
+planned features and priorities.
 
 ## 📖 Resources
 
 - **[Official Roadmap](./ROADMAP.md)** - See what's coming next.
 - **[Changelog](./docs/changelogs/index.md)** - See recent notable updates.
-- **[NPM Package](https://www.npmjs.com/package/@google/gemini-cli)** - Package
-  registry.
-- **[GitHub Issues](https://github.com/google-gemini/gemini-cli/issues)** -
-  Report bugs or request features.
-- **[Security Advisories](https://github.com/google-gemini/gemini-cli/security/advisories)** -
+- **[NPM Package](https://www.npmjs.com/package/opencli)** - Package registry.
+- **[GitHub Issues](https://github.com/JansonXIE/opencli/issues)** - Report bugs
+  or request features.
+- **[Security Advisories](https://github.com/JansonXIE/opencli/security/advisories)** -
   Security updates.
 
 ### Uninstall
