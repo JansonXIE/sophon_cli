@@ -49,7 +49,7 @@ const homeDirectoryCheck: WarningCheck = {
           return null;
         }
 
-        return 'Warning you are running Gemini CLI in your home directory.\nThis warning can be disabled in /settings';
+        return 'Warning you are running OpenCLI in your home directory.\nThis warning can be disabled in /settings';
       }
       return null;
     } catch (_err: unknown) {

@@ -257,7 +257,7 @@ export async function handleMigrateFromClaude() {
 
 export const migrateCommand: CommandModule = {
   command: 'migrate',
-  describe: 'Migrate hooks from Claude Code to Gemini CLI',
+  describe: 'Migrate hooks from Claude Code to OpenCLI',
   builder: (yargs) =>
     yargs.option('from-claude', {
       describe: 'Migrate from Claude Code hooks',

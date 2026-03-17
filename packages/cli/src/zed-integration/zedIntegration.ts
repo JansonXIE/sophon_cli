@@ -139,8 +139,8 @@ export class GeminiAgent {
       protocolVersion: acp.PROTOCOL_VERSION,
       authMethods,
       agentInfo: {
-        name: 'gemini-cli',
-        title: 'Gemini CLI',
+        name: 'open-cli',
+        title: 'OpenCLI',
         version,
       },
       agentCapabilities: {
@@ -1536,7 +1536,7 @@ function buildAvailableModels(
       value: DEFAULT_GEMINI_MODEL_AUTO,
       title: getDisplayString(DEFAULT_GEMINI_MODEL_AUTO),
       description:
-        'Let Gemini CLI decide the best model for the task: gemini-2.5-pro, gemini-2.5-flash',
+        'Let OpenCLI decide the best model for the task: gemini-2.5-pro, gemini-2.5-flash',
     },
   ];
 
@@ -1545,8 +1545,8 @@ function buildAvailableModels(
       value: PREVIEW_GEMINI_MODEL_AUTO,
       title: getDisplayString(PREVIEW_GEMINI_MODEL_AUTO),
       description: useGemini31
-        ? 'Let Gemini CLI decide the best model for the task: gemini-3.1-pro, gemini-3-flash'
-        : 'Let Gemini CLI decide the best model for the task: gemini-3-pro, gemini-3-flash',
+        ? 'Let OpenCLI decide the best model for the task: gemini-3.1-pro, gemini-3-flash'
+        : 'Let OpenCLI decide the best model for the task: gemini-3-pro, gemini-3-flash',
     });
   }
 

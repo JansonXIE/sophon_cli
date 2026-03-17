@@ -106,7 +106,7 @@ class GetInternalDocsInvocation extends BaseToolInvocation<
         files.sort();
 
         const fileList = files.map((f) => `- ${f}`).join('\n');
-        const resultContent = `Available Gemini CLI documentation files:\n\n${fileList}`;
+        const resultContent = `Available OpenCLI documentation files:\n\n${fileList}`;
 
         return {
           llmContent: resultContent,
@@ -145,7 +145,7 @@ class GetInternalDocsInvocation extends BaseToolInvocation<
 }
 
 /**
- * A tool that provides access to Gemini CLI's internal documentation.
+ * A tool that provides access to OpenCLI's internal documentation.
  * If no path is provided, it returns a list of all available documentation files.
  * If a path is provided, it returns the content of that specific file.
  */

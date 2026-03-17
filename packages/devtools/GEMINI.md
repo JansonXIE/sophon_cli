@@ -1,6 +1,6 @@
-# Gemini CLI DevTools
+# OpenCLI DevTools
 
-Integrated Developer Tools for Gemini CLI, providing a Chrome DevTools-like
+Integrated Developer Tools for OpenCLI, providing a Chrome DevTools-like
 interface for Network and Console inspection. Launched automatically when the
 `general.devtools` setting is enabled.
 

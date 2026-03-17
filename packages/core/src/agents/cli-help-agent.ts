@@ -13,14 +13,14 @@ import { GetInternalDocsTool } from '../tools/get-internal-docs.js';
 const CliHelpReportSchema = z.object({
   answer: z
     .string()
-    .describe('The detailed answer to the user question about Gemini CLI.'),
+    .describe('The detailed answer to the user question about OpenCLI.'),
   sources: z
     .array(z.string())
     .describe('The documentation files used to answer the question.'),
 });
 
 /**
- * An agent specialized in answering questions about Gemini CLI itself,
+ * An agent specialized in answering questions about OpenCLI itself,
  * using its own documentation and runtime state.
  */
 export const CliHelpAgent = (
@@ -30,14 +30,14 @@ export const CliHelpAgent = (
   kind: 'local',
   displayName: 'CLI Help Agent',
   description:
-    'Specialized in answering questions about how users use you, (Gemini CLI): features, documentation, and current runtime configuration.',
+    'Specialized in answering questions about how users use you, (OpenCLI): features, documentation, and current runtime configuration.',
   inputConfig: {
     inputSchema: {
       type: 'object',
       properties: {
         question: {
           type: 'string',
-          description: 'The specific question about Gemini CLI.',
+          description: 'The specific question about OpenCLI.',
         },
       },
       required: ['question'],
@@ -74,12 +74,12 @@ export const CliHelpAgent = (
 
   promptConfig: {
     query:
-      'Your task is to answer the following question about Gemini CLI:\n' +
+      'Your task is to answer the following question about OpenCLI:\n' +
       '<question>\n' +
       '${question}\n' +
       '</question>',
     systemPrompt:
-      "You are **CLI Help Agent**, an expert on Gemini CLI. Your purpose is to provide accurate information about Gemini CLI's features, configuration, and current state.\n\n" +
+      "You are **CLI Help Agent**, an expert on OpenCLI. Your purpose is to provide accurate information about OpenCLI's features, configuration, and current state.\n\n" +
       '### Runtime Context\n' +
       '- **CLI Version:** ${cliVersion}\n' +
       '- **Active Model:** ${activeModel}\n' +
