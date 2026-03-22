@@ -111,7 +111,9 @@ export function ApiAuthDialog({
           ? 'DeepSeek'
           : authType === AuthType.USE_KIMI
             ? 'Kimi'
-            : 'Gemini'}{' '}
+            : authType === AuthType.USE_SOPHONET
+              ? 'Sophonet'
+              : 'Gemini'}{' '}
         API Key
       </Text>
       <Box marginTop={1} flexDirection="column">
@@ -121,7 +123,9 @@ export function ApiAuthDialog({
             ? 'DeepSeek'
             : authType === AuthType.USE_KIMI
               ? 'Kimi'
-              : 'Gemini'}{' '}
+              : authType === AuthType.USE_SOPHONET
+                ? 'Sophonet'
+                : 'Gemini'}{' '}
           API key. It will be securely stored in your system keychain.
         </Text>
         <Text color={theme.text.secondary}>
@@ -131,7 +135,9 @@ export function ApiAuthDialog({
               ? 'https://platform.deepseek.com/api_keys'
               : authType === AuthType.USE_KIMI
                 ? 'https://platform.moonshot.cn/console/api-keys'
-                : 'https://aistudio.google.com/app/apikey'}
+                : authType === AuthType.USE_SOPHONET
+                  ? 'https://www.sophnet.com'
+                  : 'https://aistudio.google.com/app/apikey'}
           </Text>
         </Text>
       </Box>

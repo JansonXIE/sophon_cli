@@ -82,6 +82,11 @@ export function AuthDialog({
       key: AuthType.USE_KIMI,
     },
     {
+      label: 'Use Sophonet API Key',
+      value: AuthType.USE_SOPHONET,
+      key: AuthType.USE_SOPHONET,
+    },
+    {
       label: 'Vertex AI',
       value: AuthType.USE_VERTEX_AI,
       key: AuthType.USE_VERTEX_AI,
@@ -126,6 +131,10 @@ export function AuthDialog({
       return item.value === AuthType.USE_KIMI;
     }
 
+    if (process.env['SOPHONET_API_KEY']) {
+      return item.value === AuthType.USE_SOPHONET;
+    }
+
     return item.value === AuthType.LOGIN_WITH_GOOGLE;
   });
   if (settings.merged.security.auth.enforcedType) {
@@ -158,13 +167,16 @@ export function AuthDialog({
         if (
           authType === AuthType.USE_GEMINI ||
           authType === AuthType.USE_DEEPSEEK ||
-          authType === AuthType.USE_KIMI
+          authType === AuthType.USE_KIMI ||
+          authType === AuthType.USE_SOPHONET
         ) {
           let envKey;
           if (authType === AuthType.USE_DEEPSEEK) {
             envKey = process.env['DEEPSEEK_API_KEY'];
           } else if (authType === AuthType.USE_KIMI) {
             envKey = process.env['KIMI_API_KEY'];
+          } else if (authType === AuthType.USE_SOPHONET) {
+            envKey = process.env['SOPHONET_API_KEY'];
           } else {
             envKey = process.env['GEMINI_API_KEY'];
           }

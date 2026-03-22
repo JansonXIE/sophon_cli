@@ -59,6 +59,7 @@ export enum AuthType {
   USE_VERTEX_AI = 'vertex-ai',
   USE_DEEPSEEK = 'deepseek-api-key',
   USE_KIMI = 'kimi-api-key',
+  USE_SOPHONET = 'sophonet-api-key',
   LEGACY_CLOUD_SHELL = 'cloud-shell',
   COMPUTE_ADC = 'compute-default-credentials',
 }
@@ -86,6 +87,9 @@ export function getAuthTypeFromEnv(): AuthType | undefined {
   }
   if (process.env['KIMI_API_KEY']) {
     return AuthType.USE_KIMI;
+  }
+  if (process.env['SOPHONET_API_KEY']) {
+    return AuthType.USE_SOPHONET;
   }
   if (
     process.env['CLOUD_SHELL'] === 'true' ||
@@ -127,6 +131,10 @@ export async function createContentGeneratorConfig(
     process.env['KIMI_API_KEY'] ||
     (await loadApiKey(AuthType.USE_KIMI)) ||
     undefined;
+  const sophonetApiKey =
+    process.env['SOPHONET_API_KEY'] ||
+    (await loadApiKey(AuthType.USE_SOPHONET)) ||
+    undefined;
 
   const contentGeneratorConfig: ContentGeneratorConfig = {
     authType,
@@ -165,6 +173,11 @@ export async function createContentGeneratorConfig(
 
   if (authType === AuthType.USE_KIMI && kimiApiKey) {
     contentGeneratorConfig.apiKey = kimiApiKey;
+    return contentGeneratorConfig;
+  }
+
+  if (authType === AuthType.USE_SOPHONET && sophonetApiKey) {
+    contentGeneratorConfig.apiKey = sophonetApiKey;
     return contentGeneratorConfig;
   }
 
@@ -265,6 +278,15 @@ export async function createContentGenerator(
       );
       return new LoggingContentGenerator(
         new KimiContentGenerator(config.apiKey),
+        gcConfig,
+      );
+    }
+    if (config.authType === AuthType.USE_SOPHONET && config.apiKey) {
+      const { SophonetContentGenerator } = await import(
+        './sophonetContentGenerator.js'
+      );
+      return new LoggingContentGenerator(
+        new SophonetContentGenerator(config.apiKey),
         gcConfig,
       );
     }

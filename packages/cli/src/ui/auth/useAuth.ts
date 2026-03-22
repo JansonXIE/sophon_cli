@@ -33,7 +33,8 @@ export function validateAuthMethodWithSettings(
   if (
     authType === AuthType.USE_GEMINI ||
     authType === AuthType.USE_DEEPSEEK ||
-    authType === AuthType.USE_KIMI
+    authType === AuthType.USE_KIMI ||
+    authType === AuthType.USE_SOPHONET
   ) {
     return null;
   }
@@ -76,6 +77,8 @@ export const useAuthCommand = (
       envKey = process.env['DEEPSEEK_API_KEY'];
     } else if (selectedAuthType === AuthType.USE_KIMI) {
       envKey = process.env['KIMI_API_KEY'];
+    } else if (selectedAuthType === AuthType.USE_SOPHONET) {
+      envKey = process.env['SOPHONET_API_KEY'];
     } else {
       envKey = process.env['GEMINI_API_KEY'];
     }
@@ -118,7 +121,8 @@ export const useAuthCommand = (
       if (
         authType === AuthType.USE_GEMINI ||
         authType === AuthType.USE_DEEPSEEK ||
-        authType === AuthType.USE_KIMI
+        authType === AuthType.USE_KIMI ||
+        authType === AuthType.USE_SOPHONET
       ) {
         const key = await reloadApiKey(); // Use the unified function
         if (!key) {
